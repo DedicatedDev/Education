@@ -29,20 +29,20 @@ contract Auction {
     }
 
     //BidLogic
-    function bid(uint bidPrice) external payable {
+    function bid() external payable {
         require(msg.sender != address(0),"untrusted address");
         require(msg.sender != beneficiary, "tried to bid to your product!");
         if (block.timestamp > auctionEndTime) {
             revert AuctionAlreadyEnded();
         }
-        if (bidPrice <= highestBid) revert LowBidThanHigestBid(highestBid);
+        if (msg.value <= highestBid) revert LowBidThanHigestBid(highestBid);
 
         if (highestBid != 0) {
             pendingReturns[highBidder] += highestBid;
         }
-        highestBid = bidPrice;
+        highestBid = msg.value;
         highBidder = msg.sender;
-        emit AppearHigherBidder(msg.sender, bidPrice);
+        emit AppearHigherBidder(msg.sender, msg.value);
     }
 
     function withdraw() external returns (bool) {

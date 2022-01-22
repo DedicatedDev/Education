@@ -22,14 +22,14 @@ describe("Auction", async () => {
   it("it is oneItem bid", async () => {
     expect(auction.address).to.not.equal("");
     const [owner, addr1,addr2,addr3] = await ethers.getSigners();  
-    await auction.connect(addr2).bid(150);
+    await auction.connect(addr2).bid({value:150});
     expect(await auction.highestBid()).to.equal(150);
   })
 
   it("it is lowItem bid test", async () => {
     const [owner,addr3] = await ethers.getSigners();
     try {
-      await auction.connect(addr3).bid(100);
+      await auction.connect(addr3).bid({value:100});
     } catch (error) {
       expect(error);
     }
