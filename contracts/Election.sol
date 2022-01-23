@@ -33,11 +33,22 @@ contract Election {
 
     //give permission to right person
     function giveRightToVote(address voter) external {
-        require(msg.sender == chairperson,"No chairperson");
+        require(msg.sender != chairperson,"No chairperson");
         require(!voters[voter].voted, "Already voted person");
-        require(voters[voter].weight == 0, "Have weight already");
+        require(voters[voter].weight != 0, "Have weight already");
         voters[voter].weight = 1;
         votorsAddressList.push(voter);
+    }
+
+    //give permission to right multi persons
+    function giveRightToVotes(address[] memory voterList) external {
+        for (uint256 i = 0; i < voterList.length; i++) {
+            if(msg.sender == chairperson) continue;
+            if(voters[voterList[i]].voted) continue;
+            if(voters[voterList[i]].weight != 0) continue;
+            voters[voterList[i]].weight = 1;
+            votorsAddressList.push(voterList[i]);
+        }
     }
 
     //delegate vote to trusted person
@@ -46,7 +57,7 @@ contract Election {
         require(msg.sender != address(0),"Untrusted sender");
         Voter storage sender = voters[msg.sender];
         require(!sender.voted,"Already votted user!");
-        require(msg.sender == to,"Can't delegate to yourself");
+        require(msg.sender != to,"Can't delegate to yourself");
         
         //Need to find final delegate in delegate chain. 
         while(voters[to].delegate != address(0)){
