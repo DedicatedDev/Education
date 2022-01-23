@@ -6,6 +6,7 @@ contract Election {
         uint weight;
         bool voted;
         address delegate;
+        address groupAddress;
         uint vote;
     }
 
@@ -14,6 +15,7 @@ contract Election {
         uint voteCount;
     }
 
+    
     address public chairperson;
     address[] public votorsAddressList;
     mapping(address => Voter) public voters;
