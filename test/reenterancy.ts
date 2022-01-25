@@ -7,7 +7,7 @@ import {ethers} from "hardhat"
 import { expect } from "chai";
 import { it } from 'mocha';
 
-describe("Reenterancy", async () => {
+xdescribe("Reenterancy", async () => {
     let Bank:Bank__factory
     let bank:Bank
     let Attacker:Attack__factory
