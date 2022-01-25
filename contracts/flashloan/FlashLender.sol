@@ -31,18 +31,33 @@ contract FlashLender is IERC3156FlashLender {
             "FlashLender: Unsupported currency"
         );
         uint256 _fee = _flashFee(token, amount);
+        console.log("=>start<=");
+        console.log("Lender:",IERC20(token).balanceOf(address(this)));
+        console.log("Borrower",IERC20(token).balanceOf(address(receiver)));
+
         require(
             IERC20(token).transfer(address(receiver), amount),
             "FlashLender: Transfer failed"
         );
+
+        console.log("=>after borrower<=");
+        console.log("Lender:",IERC20(token).balanceOf(address(this)));
+        console.log("Borrower",IERC20(token).balanceOf(address(receiver)));
+        
         require(
             receiver.onFlashLoan(msg.sender, token, amount, _fee, data) == CALLBACK_SUCCESS,
             "FlashLender: Callback failed"
         );
+        
+        
         require(
             IERC20(token).transferFrom(address(receiver), address(this), amount + _fee),
             "FlashLender: Repay failed"
         );
+        console.log("flashLoan =>end<=");
+        console.log("Lender:",IERC20(token).balanceOf(address(this)));
+        console.log("Borrower",IERC20(token).balanceOf(address(receiver)));
+        console.log("--------+++++++++++----------");
         return true;
     }
 
@@ -54,6 +69,7 @@ contract FlashLender is IERC3156FlashLender {
             supportedTokens[token],
             "FlashLender: Unsupported currency"
         );
+        
         return _flashFee(token, amount);
     }
 

@@ -15,6 +15,8 @@ contract FlashBorrower is IERC3156FlashBorrower {
     address public flashToken;
     uint256 public flashAmount;
     uint256 public flashFee;
+    
+    mapping (address => uint) public shares;
 
     constructor (IERC3156FlashLender lender_) {
         lender = lender_;
@@ -65,5 +67,9 @@ contract FlashBorrower is IERC3156FlashBorrower {
         uint256 _fee = lender.flashFee(token, amount);
         uint256 _repayment = amount + _fee;
         IERC20(token).approve(address(lender), _allowance + _repayment);
+    }
+
+    function withdraw() external {
+
     }
 }
