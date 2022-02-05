@@ -34,11 +34,11 @@ class LazyMinter {
     // if (this._domain != null) {
     //   return this._domain;
     // }
-    const chainId = 1337; // await this.signer.getChainId();
+    const chainId = await this.signer.getChainId();
     this._domain = {
       name: SIGNING_DOMAIN_NAME,
       version: SIGNING_DOMAIN_VERSION,
-      verifyingContract: "0x5FbDB2315678afecb367f032d93F642f64180aa3", // this.contractAddress,
+      verifyingContract: this.contractAddress,
       chainId,
     };
     return this._domain;
