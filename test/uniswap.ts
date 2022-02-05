@@ -1,7 +1,7 @@
 import { ethers } from "hardhat";
 import { expect } from "chai";
 import { Address } from "cluster";
-describe("Uniswap Connection", async () => {
+xdescribe("Uniswap Connection", async () => {
   const poolAddress = "0x8ad599c3A0ff1De082011EFDDc58f1908eb6e6D8";
   const poolImmutablesAbi = [
     "function factory() external view returns (address)",

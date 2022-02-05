@@ -6,7 +6,7 @@ const { expect } = require("chai");
 const { MerkleTree } = require("merkletreejs");
 const keccak256 = require("keccak256");
 
-describe("Betting", function () {
+xdescribe("Betting", function () {
     let owner: SignerWithAddress,
       addr1: SignerWithAddress,
       addr2: SignerWithAddress,
