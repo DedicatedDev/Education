@@ -12,6 +12,7 @@ contract Zero is Ownable {
         require(msg.value > 0, "can't send empty amount");
         require(recievers.length > 0,"there is no recievers");
         uint fee = msg.value / _feeRatio;
+        console.log(fee);
         uint divider = (msg.value - fee) / recievers.length;
         IERC20 customToken = IERC20(tokenAdress);
         balances[tokenAdress] += fee;
@@ -35,12 +36,15 @@ contract Zero is Ownable {
     function withdraw(address tokenAdress) external onlyOwner payable {
         require(msg.value > 0 , "empty amount");
         uint balance = balances[tokenAdress];
+        console.log(balance);
         if (balance > msg.value) {
             balances[tokenAdress] -= msg.value;
+            IERC20(tokenAdress).transfer(msg.sender, msg.value);
         }else{
             balances[tokenAdress] = 0;
+            IERC20(tokenAdress).transfer(msg.sender, balance);
         }
-        IERC20(tokenAdress).transferFrom(address(this),msg.sender, msg.value);
+        
     }
 
     function withdrawEther() external onlyOwner payable {

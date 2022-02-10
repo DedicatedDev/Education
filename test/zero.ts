@@ -2,6 +2,7 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers"
 import { expect } from "chai"
 import { BigNumber } from "ethers"
 import { ethers } from "hardhat"
+import { connect } from "http2"
 import { send } from "process"
 import { ERC20Mock, ERC20Mock__factory, Zero, Zero__factory } from "../typechain"
 
@@ -46,5 +47,8 @@ describe("Zero", async()=>{
         for (let index = 0; index < receivers.length; index++) {
             expect(await mockToken.balanceOf(accounts[index+1].address)).to.equal(expectedAmount.toString())
         }
+    
+        await zero.connect(accounts[0]).withdraw(mockToken.address,{value: 100000})
+        expect(await mockToken.balanceOf(zero.address)).to.equal("0")
     })
 }) 
