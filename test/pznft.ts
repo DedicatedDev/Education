@@ -26,7 +26,7 @@ async function deploy() {
   }
 }
 
-describe("LazyNFT", function() {
+xdescribe("LazyNFT", function() {
   let PZNFTFactory:PZNFT__factory;
   let pznft:PZNFT;
   let redeemerFactory:PZNFT__factory;

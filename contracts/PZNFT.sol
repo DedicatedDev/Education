@@ -59,9 +59,7 @@ contract PZNFT is ERC721URIStorage, EIP712, AccessControl {
         require(msg.value >= voucher.minPrice, "Insufficient funds to redeem");
         _mint(signer, voucher.tokenId);
         _setTokenURI(voucher.tokenId, voucher.uri);
-
         _transfer(signer, redeemer, voucher.tokenId);
-
         pendingWithdrawals[signer] += msg.value;
         return voucher.tokenId;
     }
