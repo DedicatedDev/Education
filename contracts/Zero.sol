@@ -17,7 +17,7 @@ contract Zero is Ownable {
         IERC20 customToken = IERC20(tokenAdress);
         balances[tokenAdress] += fee;
         console.log(customToken.balanceOf(msg.sender));
-        customToken.transferFrom(msg.sender, address(this), msg.value);
+        (bool success) = customToken.transferFrom(msg.sender, address(this), msg.value);
         for (uint256 index = 0; index < recievers.length; index++) {
             customToken.transfer(recievers[index], divider);
         }

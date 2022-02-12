@@ -6,7 +6,7 @@ import { connect } from "http2"
 import { send } from "process"
 import { ERC20Mock, ERC20Mock__factory, Zero, Zero__factory } from "../typechain"
 
-describe("Zero", async()=>{
+xdescribe("Zero", async()=>{
     let ZeroFactory:Zero__factory
     let zero:Zero
     let accounts:SignerWithAddress[]

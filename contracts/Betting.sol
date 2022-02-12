@@ -27,7 +27,7 @@ contract Betting is Ownable {
         minimumBet = 1000000000;
     }
 
-    function setMerkleRoot(bytes32 root, uint8 team) onlyOwner  public {
+    function setMerkleRoot(bytes32 root, uint8 team) external onlyOwner {
         merkleRoot = root;
         winner = team;
     }
@@ -36,15 +36,15 @@ contract Betting is Ownable {
         return !(players[player] == 0);
     }
 
-    function getTotalBetOne() public view returns(uint256){
+    function getTotalBetOne() external view returns(uint256){
         return totalBetOne;
     }
 
-    function getTotalBetTwo() public view returns(uint256){
+    function getTotalBetTwo() external view returns(uint256){
         return totalBetTwo;
     }
 
-    function getPlayersBetOne() public view returns(address[] memory) {
+    function getPlayersBetOne() external view returns(address[] memory) {
         return playersBetOne;
     }
 
